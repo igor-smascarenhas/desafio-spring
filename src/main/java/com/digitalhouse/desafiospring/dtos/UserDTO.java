@@ -2,6 +2,7 @@ package com.digitalhouse.desafiospring.dtos;
 
 import com.digitalhouse.desafiospring.entities.Customer;
 import com.digitalhouse.desafiospring.entities.Seller;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 public class UserDTO {
 

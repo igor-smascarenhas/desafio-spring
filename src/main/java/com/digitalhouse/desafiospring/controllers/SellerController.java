@@ -1,5 +1,7 @@
 package com.digitalhouse.desafiospring.controllers;
 
+import com.digitalhouse.desafiospring.dtos.SellerDTO;
+import com.digitalhouse.desafiospring.dtos.UserDTO;
 import com.digitalhouse.desafiospring.entities.Customer;
 import com.digitalhouse.desafiospring.entities.Seller;
 import com.digitalhouse.desafiospring.services.CustomerService;
@@ -24,9 +26,19 @@ public class SellerController {
     }
 
     @RequestMapping(value = "/sellers", method = RequestMethod.GET)
-    public ResponseEntity<List<Seller>> findAll() {
-        List<Seller> sellers = sellerService.findAll();
-        return ResponseEntity.ok().body(sellers);
+    public ResponseEntity<List<SellerDTO>> findAll() {
+        List<SellerDTO> sellersDTOS = sellerService.findAll();
+        return ResponseEntity.ok().body(sellersDTOS);
     }
+
+    @RequestMapping(value = "/{userId}/followers/count/", method = RequestMethod.GET)
+    public ResponseEntity<SellerDTO> getSellerCount(@PathVariable("userId") Long userId) {
+
+        SellerDTO sellerDTO = sellerService.getSellerCount(userId);
+
+        return ResponseEntity.ok().body(sellerDTO);
+    }
+
+    ///
 
 }
