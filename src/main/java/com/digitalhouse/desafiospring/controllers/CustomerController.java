@@ -27,7 +27,7 @@ public class CustomerController {
         return ResponseEntity.ok().body(customers);
     }
 
-    @RequestMapping(value = "/{userId}/follow/{userIdToFollow}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{userId}/follow/{userIdToFollow}", method = RequestMethod.POST)
     public ResponseEntity follow(@PathVariable("userId") Long userId, @PathVariable("userIdToFollow") Long userIdToFollow) {
         try {
             customerService.followSeller(userId, userIdToFollow);

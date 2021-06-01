@@ -34,7 +34,13 @@ public class SellerController {
     @RequestMapping(value = "/{userId}/followers/count/", method = RequestMethod.GET)
     public ResponseEntity<SellerDTO> getSellerCount(@PathVariable("userId") Long userId) {
 
-        SellerDTO sellerDTO = sellerService.getSellerCount(userId);
+        SellerDTO sellerDTO = null;
+        try {
+            sellerDTO = sellerService.getSellerCount(userId);
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+            return ResponseEntity.notFound().build();
+        }
 
         return ResponseEntity.ok().body(sellerDTO);
     }
