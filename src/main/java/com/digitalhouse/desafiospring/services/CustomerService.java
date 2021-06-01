@@ -31,6 +31,14 @@ public class CustomerService {
         return customerDTOS;
     }
 
+    public CustomerDTO findById(Long userId) {
+        Customer customer = customerRepository.findById(userId).get();
+
+       CustomerDTO customerDTO = new CustomerDTO(customer);
+
+        return customerDTO;
+    }
+
     public void followSeller(Long customerId, Long sellerId) throws NotFoundException {
         Optional<Customer> customerOptional = customerRepository.findById(customerId);
         Optional<Seller> sellerOptional = sellerRepository.findById(sellerId);

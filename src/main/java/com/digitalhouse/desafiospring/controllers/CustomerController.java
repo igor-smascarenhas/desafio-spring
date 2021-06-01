@@ -1,7 +1,6 @@
 package com.digitalhouse.desafiospring.controllers;
 
 import com.digitalhouse.desafiospring.dtos.CustomerDTO;
-import com.digitalhouse.desafiospring.entities.Customer;
 import com.digitalhouse.desafiospring.services.CustomerService;
 import javassist.NotFoundException;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +36,13 @@ public class CustomerController {
             e.printStackTrace();
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @RequestMapping(value = "/{userId}/following/list", method = RequestMethod.GET)
+    public ResponseEntity<CustomerDTO> getCustomerFollowingList(@PathVariable("userId") Long userId) {
+        CustomerDTO customerDTO = customerService.findById(userId);
+
+        return ResponseEntity.ok().body(customerDTO);
     }
 
 }
