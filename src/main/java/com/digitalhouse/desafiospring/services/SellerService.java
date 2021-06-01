@@ -49,10 +49,14 @@ public class SellerService {
         return sellerDTO;
     }
 
-    public SellerDTO getSellerFollowers(Long sellerId) {
-        Seller seller = sellerRepository.findById(sellerId).get();
+    public SellerDTO getSellerFollowers(Long sellerId) throws NotFoundException {
+        Optional<Seller> sellerOptional = sellerRepository.findById(sellerId);
 
-        SellerDTO sellerDTO = new SellerDTO(seller);
+        if(!sellerOptional.isPresent()) {
+            throw new NotFoundException("Seller with id: "+ sellerId + " not found!");
+        }
+
+        SellerDTO sellerDTO = new SellerDTO(sellerOptional.get());
         sellerDTO.setFollowersCount(null);
 
         return sellerDTO;

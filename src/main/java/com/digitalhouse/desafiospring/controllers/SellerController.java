@@ -42,7 +42,13 @@ public class SellerController {
     @RequestMapping(value = "/{userId}/followers/list", method = RequestMethod.GET)
     public ResponseEntity<SellerDTO> getSellerFollowers(@PathVariable("userId") Long userId) {
 
-        SellerDTO sellerDTO = sellerService.getSellerFollowers(userId);
+        SellerDTO sellerDTO = null;
+        try {
+            sellerDTO = sellerService.getSellerFollowers(userId);
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+            return ResponseEntity.notFound().build();
+        }
 
         return ResponseEntity.ok().body(sellerDTO);
     }

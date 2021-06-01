@@ -31,10 +31,14 @@ public class CustomerService {
         return customerDTOS;
     }
 
-    public CustomerDTO findById(Long userId) {
-        Customer customer = customerRepository.findById(userId).get();
+    public CustomerDTO findById(Long userId) throws NotFoundException {
+        Optional<Customer> customerOptional = customerRepository.findById(userId);
 
-       CustomerDTO customerDTO = new CustomerDTO(customer);
+        if(!customerOptional.isPresent()) {
+            throw new NotFoundException("Customer not found");
+        }
+
+        CustomerDTO customerDTO = new CustomerDTO(customerOptional.get());
 
         return customerDTO;
     }
@@ -64,7 +68,7 @@ public class CustomerService {
     private boolean isAlreadyFollowing(Customer customer, Long sellerId) {
        Optional<Seller> sellerOptional = customer.getFollowing().stream().filter(seller -> seller.getId() == sellerId).findFirst();
 
-        return sellerOptional.isPresent();
+       return sellerOptional.isPresent();
     }
 
 }

@@ -40,7 +40,14 @@ public class CustomerController {
 
     @RequestMapping(value = "/{userId}/following/list", method = RequestMethod.GET)
     public ResponseEntity<CustomerDTO> getCustomerFollowingList(@PathVariable("userId") Long userId) {
-        CustomerDTO customerDTO = customerService.findById(userId);
+        CustomerDTO customerDTO = null;
+
+        try {
+            customerDTO = customerService.findById(userId);
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+            return ResponseEntity.notFound().build();
+        }
 
         return ResponseEntity.ok().body(customerDTO);
     }
