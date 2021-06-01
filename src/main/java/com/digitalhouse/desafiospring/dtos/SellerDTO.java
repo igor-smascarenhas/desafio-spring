@@ -10,7 +10,8 @@ import java.util.stream.Collectors;
 public class SellerDTO extends UserDTO {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<UserDTO>  followers = new ArrayList<>();
+    private List<UserDTO> followers = new ArrayList<>();
+
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long followersCount;
 

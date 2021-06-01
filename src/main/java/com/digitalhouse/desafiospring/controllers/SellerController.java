@@ -39,6 +39,12 @@ public class SellerController {
         return ResponseEntity.ok().body(sellerDTO);
     }
 
-    ///
+    @RequestMapping(value = "/{userId}/followers/list", method = RequestMethod.GET)
+    public ResponseEntity<SellerDTO> getSellerFollowers(@PathVariable("userId") Long userId) {
+
+        SellerDTO sellerDTO = sellerService.getSellerFollowers(userId);
+
+        return ResponseEntity.ok().body(sellerDTO);
+    }
 
 }

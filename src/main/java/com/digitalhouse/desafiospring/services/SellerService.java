@@ -49,5 +49,14 @@ public class SellerService {
         return sellerDTO;
     }
 
+    public SellerDTO getSellerFollowers(Long sellerId) {
+        Seller seller = sellerRepository.findById(sellerId).get();
+
+        SellerDTO sellerDTO = new SellerDTO(seller);
+        sellerDTO.setFollowersCount(null);
+
+        return sellerDTO;
+    }
+
 
 }
