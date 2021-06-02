@@ -1,8 +1,5 @@
 package com.digitalhouse.desafiospring.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.ManyToAny;
-
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -16,8 +13,8 @@ public class Seller extends User {
     @ManyToMany
     @JoinTable(name = "tb_seller_follower",
     joinColumns = @JoinColumn(name = "seller_id"),
-    inverseJoinColumns = @JoinColumn(name = "custumer_id"))
-    private List<Customer> followers = new ArrayList<>();
+    inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> followers = new ArrayList<>();
 
     public Seller() {
     }
@@ -26,11 +23,11 @@ public class Seller extends User {
         super(id, username);
     }
 
-    public List<Customer> getFollowers() {
+    public List<User> getFollowers() {
         return followers;
     }
 
-    public void addFollower(Customer follower) {
+    public void addFollower(User follower) {
         this.followers.add(follower);
     }
 }

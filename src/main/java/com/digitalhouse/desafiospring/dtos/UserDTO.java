@@ -1,25 +1,39 @@
 package com.digitalhouse.desafiospring.dtos;
 
-import com.digitalhouse.desafiospring.entities.Customer;
 import com.digitalhouse.desafiospring.entities.Seller;
+import com.digitalhouse.desafiospring.entities.User;
 import com.fasterxml.jackson.annotation.JsonInclude;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserDTO {
 
     protected Long userId;
     protected String username;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private List<UserDTO> following = new ArrayList<>();
+
     public UserDTO() {
     }
 
-    public UserDTO(Customer customer) {
-        this.userId = customer.getId();
-        this.username = customer.getUsername();
+    public UserDTO(Long userId, String username) {
+        this.userId = userId;
+        this.username = username;
     }
 
-    public UserDTO(Seller seller) {
-        this.userId = seller.getId();
-        this.username = seller.getUsername();
+    public UserDTO(Seller user) {
+        this.userId = user.getId();
+        this.username = user.getUsername();
+        this.following = user.getFollowing().stream().map(seller -> new UserDTO(seller.getId(), seller.getUsername())).collect(Collectors.toList());
+    }
+
+    public UserDTO(User user) {
+        this.userId = user.getId();
+        this.username = user.getUsername();
+        this.following = user.getFollowing().stream().map(seller -> new UserDTO(seller.getId(), seller.getUsername())).collect(Collectors.toList());
     }
 
     public Long getUserId() {
@@ -36,5 +50,13 @@ public class UserDTO {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public List<UserDTO> getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(List<UserDTO> following) {
+        this.following = following;
     }
 }

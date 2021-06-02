@@ -15,10 +15,14 @@ public class SellerDTO extends UserDTO {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long followersCount;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private List<UserDTO> following = new ArrayList<>();
+
     public SellerDTO(Seller seller) {
         this.userId = seller.getId();
         this.username = seller.getUsername();
-        this.followers = seller.getFollowers().stream().map(customer -> new UserDTO(customer)).collect(Collectors.toList());
+        this.followers = seller.getFollowers().stream().map(user -> new UserDTO(user.getId(), user.getUsername())).collect(Collectors.toList());
+        this.following = seller.getFollowing().stream().map(user -> new UserDTO(user.getId(), user.getUsername())).collect(Collectors.toList());
         this.followersCount = Long.valueOf(followers.size());
     }
 
@@ -39,5 +43,7 @@ public class SellerDTO extends UserDTO {
         return followersCount;
 
     }
+
+
 
 }

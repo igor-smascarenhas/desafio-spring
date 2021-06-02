@@ -1,18 +1,13 @@
 package com.digitalhouse.desafiospring.services;
 
 import com.digitalhouse.desafiospring.dtos.SellerDTO;
-import com.digitalhouse.desafiospring.dtos.UserDTO;
-import com.digitalhouse.desafiospring.entities.Customer;
 import com.digitalhouse.desafiospring.entities.Seller;
-import com.digitalhouse.desafiospring.repositories.CustomerRepository;
+import com.digitalhouse.desafiospring.repositories.UserRepository;
 import com.digitalhouse.desafiospring.repositories.SellerRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -20,9 +15,9 @@ import java.util.stream.Collectors;
 public class SellerService {
 
     private SellerRepository sellerRepository;
-    private CustomerRepository customerRepository;
+    private UserRepository customerRepository;
 
-    public SellerService(SellerRepository sellerRepository, CustomerRepository customerRepository) {
+    public SellerService(SellerRepository sellerRepository, UserRepository customerRepository) {
         this.sellerRepository = sellerRepository;
         this.customerRepository = customerRepository;
     }
@@ -34,7 +29,7 @@ public class SellerService {
         return sellerDTOS;
     }
 
-    public SellerDTO find(Long sellerId) {
+    public SellerDTO findById(Long sellerId) {
         Seller seller = sellerRepository.findById(sellerId).get();
 
         return new SellerDTO(seller);

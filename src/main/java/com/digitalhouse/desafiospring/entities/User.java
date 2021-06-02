@@ -1,17 +1,22 @@
 package com.digitalhouse.desafiospring.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-public abstract class User {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "followers")
+    private List<Seller> following = new ArrayList<>();
 
     public User() {
     }
@@ -35,6 +40,18 @@ public abstract class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public List<Seller> getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(List<Seller> following) {
+        this.following = following;
+    }
+
+    public void follow(Seller seller) {
+        this.following.add(seller);
     }
 
     @Override

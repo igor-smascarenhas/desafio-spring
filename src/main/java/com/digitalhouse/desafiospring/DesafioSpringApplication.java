@@ -1,8 +1,8 @@
 package com.digitalhouse.desafiospring;
 
-import com.digitalhouse.desafiospring.entities.Customer;
 import com.digitalhouse.desafiospring.entities.Seller;
-import com.digitalhouse.desafiospring.repositories.CustomerRepository;
+import com.digitalhouse.desafiospring.entities.User;
+import com.digitalhouse.desafiospring.repositories.UserRepository;
 import com.digitalhouse.desafiospring.repositories.SellerRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,10 +17,10 @@ public class DesafioSpringApplication implements CommandLineRunner {
         SpringApplication.run(DesafioSpringApplication.class, args);
     }
 
-    private final CustomerRepository customerRepository;
+    private final UserRepository customerRepository;
     private final SellerRepository sellerRepository;
 
-    public DesafioSpringApplication(CustomerRepository customerRepository, SellerRepository sellerRepository) {
+    public DesafioSpringApplication(UserRepository customerRepository, SellerRepository sellerRepository) {
         this.customerRepository = customerRepository;
         this.sellerRepository = sellerRepository;
     }
@@ -28,10 +28,10 @@ public class DesafioSpringApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Customer c1 = new Customer();
+        User c1 = new User();
         c1.setUsername("Igor");
 
-        Customer c2 = new Customer();
+        User c2 = new User();
         c2.setUsername("Amanda");
 
         Seller s1 = new Seller();
