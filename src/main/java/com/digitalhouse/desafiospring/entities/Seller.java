@@ -30,4 +30,8 @@ public class Seller extends User {
     public void addFollower(User follower) {
         this.followers.add(follower);
     }
+
+    public void removeFollower(User user) {
+        this.followers.remove(user);
+    }
 }

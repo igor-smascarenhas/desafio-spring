@@ -15,11 +15,9 @@ import java.util.stream.Collectors;
 public class SellerService {
 
     private SellerRepository sellerRepository;
-    private UserRepository customerRepository;
 
-    public SellerService(SellerRepository sellerRepository, UserRepository customerRepository) {
+    public SellerService(SellerRepository sellerRepository) {
         this.sellerRepository = sellerRepository;
-        this.customerRepository = customerRepository;
     }
 
     public List<SellerDTO> findAll() {

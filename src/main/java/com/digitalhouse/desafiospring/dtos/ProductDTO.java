@@ -1,5 +1,7 @@
 package com.digitalhouse.desafiospring.dtos;
 
+import com.digitalhouse.desafiospring.entities.Product;
+
 public class ProductDTO {
 
     private Long id;
@@ -9,13 +11,13 @@ public class ProductDTO {
     private String color;
     private String notes;
 
-    public ProductDTO(Long id, String name, String type, String brand, String color, String notes) {
-        this.id = id;
-        this.name = name;
-        this.type = type;
-        this.brand = brand;
-        this.color = color;
-        this.notes = notes;
+    public ProductDTO(Product product) {
+        this.id = product.getId();
+        this.name = product.getName();
+        this.type = product.getType();
+        this.brand = product.getBrand();
+        this.color = product.getColor();
+        this.notes = product.getNotes();
     }
 
     public Long getId() {

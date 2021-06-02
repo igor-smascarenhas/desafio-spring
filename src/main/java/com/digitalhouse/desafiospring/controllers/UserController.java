@@ -38,6 +38,17 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value = "/{userId}/unfollow/{userIdToUnfollow}", method = RequestMethod.POST)
+    public ResponseEntity unfollow(@PathVariable("userId") Long userId, @PathVariable("userIdToUnfollow") Long userIdToUnfollow) {
+        try {
+            userService.unfollowSeller(userId, userIdToUnfollow);
+            return ResponseEntity.ok().build();
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @RequestMapping(value = "/{userId}/following/list", method = RequestMethod.GET)
     public ResponseEntity<UserDTO> getCustomerFollowingList(@PathVariable("userId") Long userId) {
         UserDTO userDTO = null;

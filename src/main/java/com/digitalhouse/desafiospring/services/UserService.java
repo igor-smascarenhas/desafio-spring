@@ -65,10 +65,32 @@ public class UserService {
         sellerRepository.save(seller);
     }
 
+    public void unfollowSeller(Long userId, Long sellerId) throws NotFoundException {
+
+        Optional<User> userOptional = userRepository.findById(userId);
+        Optional<Seller> sellerOptional = sellerRepository.findById(sellerId);
+
+        if(!userOptional.isPresent() || !sellerOptional.isPresent()) {
+            throw new NotFoundException("User or Seller invalid");
+        }
+
+        User user = userOptional.get();
+        Seller seller = sellerOptional.get();
+
+        if(!isAlreadyFollowing(user, sellerId)) {
+            return;
+        }
+
+        user.unfollow(seller);
+        seller.removeFollower(user);
+
+        userRepository.save(user);
+        sellerRepository.save(seller);
+    }
+
     private boolean isAlreadyFollowing(User user, Long sellerId) {
        Optional<Seller> sellerOptional = user.getFollowing().stream().filter(seller -> seller.getId() == sellerId).findFirst();
 
        return sellerOptional.isPresent();
     }
-
 }

@@ -54,6 +54,10 @@ public class User {
         this.following.add(seller);
     }
 
+    public void unfollow(Seller seller) {
+        this.following.remove(seller);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
