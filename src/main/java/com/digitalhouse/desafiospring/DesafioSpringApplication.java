@@ -40,11 +40,20 @@ public class DesafioSpringApplication implements CommandLineRunner {
         Seller s2 = new Seller();
         s2.setUsername("Bruna");
 
+        Seller s3 = new Seller();
+        s3.setUsername("Alan");
+
         c1.follow(s1);
+        c2.follow(s1);
+        c2.follow(s2);
+        c2.follow(s3);
         s1.addFollower(c1);
+        s1.addFollower(c2);
+        s2.addFollower(c2);
+        s3.addFollower(c2);
 
         customerRepository.saveAll(Arrays.asList(c1, c2));
-        sellerRepository.saveAll(Arrays.asList(s1, s2));
+        sellerRepository.saveAll(Arrays.asList(s1, s2, s3));
 
     }
 }

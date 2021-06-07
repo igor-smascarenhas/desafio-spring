@@ -3,12 +3,12 @@ package com.digitalhouse.desafiospring.controllers;
 import com.digitalhouse.desafiospring.dtos.UserDTO;
 import com.digitalhouse.desafiospring.services.UserService;
 import javassist.NotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -50,17 +50,22 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{userId}/following/list", method = RequestMethod.GET)
-    public ResponseEntity<UserDTO> getCustomerFollowingList(@PathVariable("userId") Long userId) {
+    public ResponseEntity<List<UserDTO>> getCustomerFollowingList(@PathVariable("userId") Long userId, @RequestParam(value = "order", required = false) String order) {
+
         UserDTO userDTO = null;
+        List<UserDTO> userDTOS = null;
 
         try {
+
             userDTO = userService.findById(userId);
+            userDTOS = userService.orderUsersByName(userDTO.getFollowing(), order);
+
         } catch (NotFoundException e) {
             e.printStackTrace();
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok().body(userDTO);
+        return ResponseEntity.ok().body(userDTOS);
     }
 
 }

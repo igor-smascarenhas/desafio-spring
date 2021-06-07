@@ -5,10 +5,11 @@ import com.digitalhouse.desafiospring.entities.User;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class UserDTO {
+public class UserDTO implements Comparable<UserDTO> {
 
     protected Long userId;
     protected String username;
@@ -58,5 +59,10 @@ public class UserDTO {
 
     public void setFollowing(List<UserDTO> following) {
         this.following = following;
+    }
+
+    @Override
+    public int compareTo(UserDTO o) {
+        return username.compareTo(o.getUsername());
     }
 }

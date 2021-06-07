@@ -1,13 +1,12 @@
 package com.digitalhouse.desafiospring.controllers;
 
 import com.digitalhouse.desafiospring.dtos.SellerDTO;
+import com.digitalhouse.desafiospring.dtos.UserDTO;
 import com.digitalhouse.desafiospring.services.SellerService;
+import com.digitalhouse.desafiospring.services.UserService;
 import javassist.NotFoundException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,9 +15,11 @@ import java.util.List;
 public class SellerController {
 
     private SellerService sellerService;
+    private UserService userService;
 
-    public SellerController(SellerService sellerService) {
+    public SellerController(SellerService sellerService, UserService userService) {
         this.sellerService = sellerService;
+        this.userService = userService;
     }
 
     @RequestMapping(value = "/sellers", method = RequestMethod.GET)
@@ -48,17 +49,21 @@ public class SellerController {
     }
 
     @RequestMapping(value = "/{userId}/followers/list", method = RequestMethod.GET)
-    public ResponseEntity<SellerDTO> getSellerFollowers(@PathVariable("userId") Long userId) {
+    public ResponseEntity<List<UserDTO>> getSellerFollowers(@PathVariable("userId") Long userId, @RequestParam(value = "order", required = false) String order) {
 
         SellerDTO sellerDTO = null;
+        List<UserDTO> userDTOS = null;
+
         try {
             sellerDTO = sellerService.getSellerFollowers(userId);
+            userDTOS = userService.orderUsersByName(sellerDTO.getFollowers(), order);
+
         } catch (NotFoundException e) {
             e.printStackTrace();
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok().body(sellerDTO);
+        return ResponseEntity.ok().body(userDTOS);
     }
 
 }

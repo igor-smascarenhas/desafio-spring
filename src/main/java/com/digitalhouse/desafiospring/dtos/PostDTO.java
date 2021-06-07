@@ -1,9 +1,10 @@
 package com.digitalhouse.desafiospring.dtos;
 
 import com.digitalhouse.desafiospring.entities.Post;
+
 import java.util.Date;
 
-public class PostDTO {
+public class PostDTO implements Comparable<PostDTO> {
 
     private Long id;
     private Long userId;
@@ -70,5 +71,10 @@ public class PostDTO {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    @Override
+    public int compareTo(PostDTO o) {
+        return date.compareTo(o.getDate());
     }
 }

@@ -1,5 +1,7 @@
 package com.digitalhouse.desafiospring.entities;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -18,6 +20,12 @@ public class Post {
     private Integer category;
     private Double price;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Boolean hasPromo;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Double discount;
+
     public Post() {
     }
 
@@ -28,6 +36,19 @@ public class Post {
         this.detail = detail;
         this.category = category;
         this.price = price;
+        this.hasPromo = null;
+        this.discount = null;
+    }
+
+    public Post(Long id, Long userId, Date date, Product detail, Integer category, Double price, Boolean hasPromo, Double discount) {
+        this.id = id;
+        this.userId = userId;
+        this.date = date;
+        this.detail = detail;
+        this.category = category;
+        this.price = price;
+        this.hasPromo = hasPromo;
+        this.discount = discount;
     }
 
     public Long getId() {
@@ -76,5 +97,21 @@ public class Post {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Boolean getHasPromo() {
+        return hasPromo;
+    }
+
+    public void setHasPromo(Boolean hasPromo) {
+        this.hasPromo = hasPromo;
+    }
+
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
     }
 }

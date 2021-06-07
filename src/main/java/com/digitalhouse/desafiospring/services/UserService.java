@@ -8,6 +8,8 @@ import com.digitalhouse.desafiospring.repositories.SellerRepository;
 import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -93,4 +95,23 @@ public class UserService {
 
        return sellerOptional.isPresent();
     }
+
+    public List<UserDTO> orderUsersByName(List<UserDTO> userDTOS, String order) {
+
+        if(order == null) {
+            return userDTOS;
+        }
+
+        if(order.contains("name")) {
+            if(order.contains("asc")) {
+                Collections.sort(userDTOS);
+            } else if(order.contains("desc")) {
+                Collections.sort(userDTOS, Collections.reverseOrder());
+            }
+        }
+
+        return userDTOS;
+
+    }
+
 }
