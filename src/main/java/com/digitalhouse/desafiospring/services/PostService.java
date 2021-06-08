@@ -44,7 +44,7 @@ public class PostService {
             throw new NotFoundException("User with id " + id + " not found");
         }
 
-        List<PostDTO> postDTOS = postRepository.findPostsByUserId(id).get().stream().filter(post -> post.getHasPromo() == null).map(post -> new PostDTO(post)).collect(Collectors.toList());
+        List<PostDTO> postDTOS = postRepository.findPostsByUserId(id).get().stream().map(post -> new PromoPostDTO(post)).collect(Collectors.toList());
 
         return postDTOS;
     }
